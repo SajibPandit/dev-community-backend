@@ -1,18 +1,23 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
 const posts = require("./routes/api/posts");
+
 const app = express();
 
 mongoose
-  .connect("mongodb://localhost:27017/dev-community")
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("Database Connected"))
-  .catch(() => console.log("Error Occures"));
+  .catch(() => console.log("Error Occured"));
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
+
+//middlewares
+app.use(express.json());
 
 app.use("/api/users", users);
 app.use("/api/profile", profile);

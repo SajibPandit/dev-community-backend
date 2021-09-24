@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const passport = require("passport");
 require("dotenv").config();
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
@@ -12,12 +13,12 @@ mongoose
   .then(() => console.log("Database Connected"))
   .catch(() => console.log("Error Occured"));
 
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
-});
-
 //middlewares
 app.use(express.json());
+//Passport middleware
+app.use(passport.initialize());
+//Passport Config
+require("./utils/passport")(passport);
 
 app.use("/api/users", users);
 app.use("/api/profile", profile);

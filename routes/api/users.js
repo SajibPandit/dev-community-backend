@@ -2,6 +2,7 @@ const express = require("express");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
 const router = express.Router();
 
 const User = require("../../models/User");
@@ -93,11 +94,11 @@ router.post("/login", (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: "1h" },
             (err, token) => {
-                console.log(token)
+              console.log(token);
               if (token) {
                 res.status(200).json({
                   success: true,
-                  token : `Bearer ${token}`
+                  token: `Bearer ${token}`,
                 });
               } else {
                 res.status(400).json({
@@ -115,5 +116,22 @@ router.post("/login", (req, res) => {
     }
   });
 });
+
+//@route  Get api/users/current
+//@desc   Return Current User
+//@access Private
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { id, name, email, avatar } = req.user;
+    return res.status(200).json({
+      id,
+      name,
+      email,
+      avatar,
+    });
+  }
+);
 
 module.exports = router;

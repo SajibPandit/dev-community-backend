@@ -1,0 +1,24 @@
+{
+  "name": "dev-community",
+  "version": "1.0.0",
+  "description": "social network system for developers",
+  "main": "index.js",
+  "scripts": {
+    "start":"node index",
+    "dev":"nodemon index"
+  },
+  "author": "Sajib Pandit",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.7",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
